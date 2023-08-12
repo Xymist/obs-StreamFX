@@ -13,6 +13,7 @@ on:
   pull_request:
     branches:
       - '*'
+  workflow_dispatch:
 
 concurrency:
   group: build-${{ github.ref_name }}
@@ -169,6 +170,11 @@ jobs:
         CMAKE_BUILD_TYPE: "RelWithDebInfo"
       run: |
         cmake --build "build/ci" --config ${{ env.CMAKE_BUILD_TYPE }} --target StreamFX
+    - name: "List artifacts"
+      shell: bash
+      run: |
+        ls -la "${{ github.workspace }}/build/ci"
+        ls -la "${{ github.workspace }}/build/ci/StreamFX"
 
   macos:
     strategy:
