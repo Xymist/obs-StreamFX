@@ -170,10 +170,11 @@ jobs:
         CMAKE_BUILD_TYPE: "RelWithDebInfo"
       run: |
         cmake --build "build/ci" --config ${{ env.CMAKE_BUILD_TYPE }} --target StreamFX
-    - name: "List artifacts"
-      shell: bash
-      run: |
-        tree "${{ github.workspace }}/build/ci"
+    - name: "Upload artifacts"
+      uses: actions/upload-artifact@v3
+      with:
+        name: "StreamFX-${{ env.CMAKE_BUILD_TYPE }}"
+        path: ${{ github.workspace }}/build/ci/RelWithDebInfo
 
   # macos:
   #   strategy:
